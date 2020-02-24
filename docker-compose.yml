@@ -1,0 +1,9 @@
+version: "2.2"
+
+services:
+    listr:
+        build: "."
+        ports:
+          - "9988:9988"
+        volumes:
+          - ./db:/usr/src/app/db

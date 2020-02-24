@@ -3,6 +3,7 @@ version: "2.2"
 services:
     listr:
         build: "."
+        restart: always
         ports:
           - "9988:9988"
         volumes:

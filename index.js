@@ -11,12 +11,12 @@ const fs = require('fs');
 app.use(helmet());
 app.use(morgan('short'))
 
-const port = process.env.port || 9988;
+const port = process.env.port || 8021;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const dist_dir = `${__dirname}/public`
+const dist_dir = `${__dirname}/www/dist`
 fs.exists(dist_dir, (exists) => {
     if (exists) {
         console.log('found dist dir');

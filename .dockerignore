@@ -1,2 +1,4 @@
 node_modules/
 db/
+www/dist/
+www/node_modules/

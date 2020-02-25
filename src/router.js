@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db.js');
+var express_sse = require('express-sse');
+var sse = new express_sse(["poke"]);
+
+router.get('/events', sse.init);
 
 router.get('/', (req, res) => {
     db.list_count()
@@ -35,7 +39,10 @@ router.put('/:list_id/:item', (req, res) => {
             res.send(reason)
         })
         .then((result) => {
+
+            sse.send("poke");
             res.send(result);
+
         });
 });
 
@@ -49,6 +56,7 @@ router.post('/:list_id/:entry_id/:marked', (req, res) => {
             res.send(reason)
         })
         .then((result) => {
+            sse.send("poke");
             res.send(result);
         });
 });

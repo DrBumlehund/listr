@@ -23,7 +23,13 @@ export default {
     };
   },
   mounted() {
-    this.update();
+    var es = new EventSource("/api/events");
+
+    es.onmessage = () => {
+      this.update();
+    };
+
+    setInterval(() => this.update(), 15000); // update automatically every fifteen seconds
   },
   methods: {
     update: function() {

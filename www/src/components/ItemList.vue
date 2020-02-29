@@ -30,6 +30,8 @@ export default {
     };
 
     setInterval(() => this.update(), 15000); // update automatically every fifteen seconds
+
+    this.update();
   },
   methods: {
     update: function() {

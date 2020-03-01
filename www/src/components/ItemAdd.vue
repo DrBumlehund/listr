@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "ItemAdd",
   data: function() {
@@ -29,11 +27,10 @@ export default {
   },
   methods: {
     add: function() {
-      axios
-        .put(`${window.location.origin}/api/0/${this.item_name}`)
-        .then(() => {
-          this.item_name = "";
-        });
+      if (this.item_name != "") {
+        this.$store.dispatch("add_item_to_item_list", this.item_name);
+        this.item_name = "";
+      }
     }
   }
 };

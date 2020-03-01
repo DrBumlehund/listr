@@ -1,20 +1,23 @@
 
 const express = require('express');
 const app = express();
-const helmet = require('helmet')
-var morgan = require('morgan')
-
 const server = require('http').createServer(app);
-const bodyParser = require('body-parser');
 const fs = require('fs');
 
+// middleware
+const helmet = require('helmet')
 app.use(helmet());
-app.use(morgan('short'))
 
-const port = process.env.port || 8021;
+var morgan = require('morgan')
+app.use(morgan('dev'))
 
+var cors = require('cors')
+app.use(cors())
+
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 const dist_dir = `${__dirname}/www/dist`
 fs.exists(dist_dir, (exists) => {
@@ -32,7 +35,8 @@ fs.exists(dist_dir, (exists) => {
     }
 });
 
-app.use('/api', require('./src/router'));
+app.use('/api', require('./src/items_router'));
 
+const port = process.env.port || 8021;
 server.listen(port);
 console.log('Server listening on port:', port);

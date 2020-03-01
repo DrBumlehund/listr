@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <Navbar app_name="123" />
-
+    <Navbar />
     <div class="container">
       <ItemList />
       <item-add />
@@ -16,6 +15,9 @@ import ItemAdd from "./components/ItemAdd.vue";
 
 export default {
   name: "App",
+  mounted() {
+    this.$store.dispatch('subscribe_to_events');
+  },
   components: {
     Navbar,
     ItemList,

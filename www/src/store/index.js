@@ -4,8 +4,8 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
-let origin = `${window.location.protocol}//${window.location.hostname}:8021`;
-// let origin = `${window.location.origin}`;
+// let origin = `${window.location.protocol}//${window.location.hostname}:8021`;
+let origin = `${window.location.origin}`;
 
 
 export default new Vuex.Store({

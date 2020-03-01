@@ -50,7 +50,8 @@ router.get('/events', (req, res, next) => {
     const headers = {
         'Content-Type': 'text/event-stream',
         'Connection': 'keep-alive',
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache',
+        'X-Accel-Buffering': 'no'
     };
     res.writeHead(200, headers);
 

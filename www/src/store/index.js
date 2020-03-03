@@ -4,8 +4,8 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
-// let origin = `${window.location.protocol}//${window.location.hostname}:8021`;
-let origin = `${window.location.origin}`;
+let origin = `${window.location.protocol}//${window.location.hostname}:8021`;
+// let origin = `${window.location.origin}`;
 
 
 export default new Vuex.Store({
@@ -15,11 +15,11 @@ export default new Vuex.Store({
   mutations: {
     ADD_OR_UPDATE_ITEM(state, item) {
       let i = state.item_list.findIndex(
-        (list_item) => list_item.entry_id == item.entry_id
+        (list_item) => list_item.entry_id == Number(item.entry_id)
       );
       if (i > -1) {
         if (item.item_name) {
-          state.item_list[i].item_name = item.item_name;
+          state.item_list[i].item_name = String(item.item_name);
         }
         state.item_list[i].marked = Number(item.marked);
       } else {
@@ -29,7 +29,7 @@ export default new Vuex.Store({
       }
     },
     REMOVE_ITEM(state, entry_id) {
-      state.item_list = state.item_list.filter(item => item.entry_id !== entry_id);
+      state.item_list = state.item_list.filter(item => item.entry_id !== Number(entry_id));
     }
   },
   actions: {
@@ -65,6 +65,15 @@ export default new Vuex.Store({
           context.commit('REMOVE_ITEM', event_data.payload);
         }
       };
+    },
+    remove_item(context, entry_id) {
+      axios
+        .delete(`${origin}/api/${entry_id}`)
+        .then((response) => {
+          if (response.status == 200) {
+            context.commit('REMOVE_ITEM', entry_id);
+          }
+        });
     }
   },
   getters: {

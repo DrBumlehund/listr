@@ -32,8 +32,7 @@ module.exports.get_list = (all) => {
     return new Promise(async (resolve, reject) => {
         let db = await open_db();
 
-        db.all(`SELECT entry_id, item_name, marked FROM '${table_name}'
-                WHERE ( ( marked == 0 OR (strftime('%s','now') - ts_changed) < (15) ) OR ${(all ? 'true' : 'false')})`,
+        db.all(`SELECT entry_id, item_name, marked FROM '${table_name}'`,
             function (err, rows) {
                 if (err) {
                     console.error(err);

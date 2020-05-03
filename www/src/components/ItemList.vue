@@ -10,7 +10,7 @@
       >
         <span v-if="item.marked != 0">
           <s>{{ item.item_name }}</s>
-          <a v-on:click="remove_item(item.entry_id)" class="float-right padding-fixed">
+          <a v-on:click="remove_item(item)" class="float-right padding-fixed">
             <TrashcanSvg />
           </a>
         </span>
@@ -21,12 +21,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 import TrashcanSvg from "@/components/TrashcanSvg.vue";
 
 export default {
   name: "ItemList",
+  props: {
+    group: Object
+  },
   methods: {
     ...mapActions({
       mark: "mark_item"
@@ -34,9 +36,13 @@ export default {
     ...mapActions(["remove_item"])
   },
   computed: {
-    ...mapGetters({
-      item_list: "get_item_list"
-    })
+    item_list() {
+      if (this.group) {
+        return this.group.items;
+      } else {
+        return [];
+      }
+    }
   },
   components: {
     TrashcanSvg

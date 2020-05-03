@@ -18,17 +18,26 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "ItemAdd",
+  props: {
+    groupId: Number
+  },
   data: function() {
     return {
       item_name: ""
     };
   },
   methods: {
+    ...mapActions(["add_item"]),
     add: function() {
       if (this.item_name != "") {
-        this.$store.dispatch("add_item_to_item_list", this.item_name);
+        this.add_item({
+          group_id: this.groupId,
+          item_name: this.item_name
+        });
         this.item_name = "";
       }
     }
